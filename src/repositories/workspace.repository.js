@@ -9,15 +9,13 @@ class WorkspacesRepository {
      * @param {string} data.name - El nombre del workspace.
      * @param {string} data.owner_id - El id del usuario propietario del workspace.
      * @param {string} [data.description] - La descripcion del workspace.
-     * @param {Date} [data.created_at] - La fecha de creacion del workspace.
      */
-    async create({ name, owner_id, description, created_at }) {
+    async create({ name, owner_id, description}) {
         try{
             const workspace = new Workspaces({
                 name,
                 owner_id,
-                description,
-                created_at,
+                description
             });
             
             await workspace.save();
