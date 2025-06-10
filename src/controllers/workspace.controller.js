@@ -39,6 +39,43 @@ class WorkspaceController {
             }
         }
     }
+    async delete(request, response) {
+        try {
+            const workspace_id = request.params.workspace_id
+            const user_id = request.user.id
+            await workspaces_repository.deleteWorkspaceFromOwner(user_id, workspace_id)
+
+            response.status(200).json(
+                {
+                    ok: true,
+                    message: 'Workspace eliminado correctamente',
+                    status: 200,
+                    data: {}
+                }
+            )
+            return
+        } catch (error) {
+
+            if (error.status) {
+                response.status(error.status).send(
+                    {
+                        message: error.message,
+                        status: error.status,
+                        ok: false
+                    }
+                )
+                return
+            } else {
+                console.error('Hubo un error', error)
+                response.status(500).json(
+                    {
+                        message: 'Error interno del servidor',
+                        ok: false
+                    }
+                )
+            }
+        };
+    }
 }
 
 const workspace_controller = new WorkspaceController

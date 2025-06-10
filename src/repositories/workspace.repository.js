@@ -27,6 +27,18 @@ class WorkspacesRepository {
             
         }
     }
+    async deleteWorkspaceFromOwner (owner_id, workspace_id) {
+
+        //Aca eliminamos el workspace solo si el owner_id es el recibido por parametro
+        const result = await Workspaces.findOneAndDelete({owner_id, _id: workspace_id})
+        //Si el result es null, significa que no se elimino el workspace
+        if(!result){
+            throw {status: 404, message: 'El workspace a eliminar no existe'}
+        }
+    }
+    async deleteById(workspace_id){
+        return await Workspaces.findOneAndDelete({_id: workspace_id})
+    }
 }
 const workspaces_repository = new WorkspacesRepository();
 export default workspaces_repository;

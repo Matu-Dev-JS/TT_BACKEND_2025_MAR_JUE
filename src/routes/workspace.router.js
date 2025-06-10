@@ -11,4 +11,16 @@ workspace_router.post(
     workspace_controller.create
 )
 
+/* workspace_router.get(
+    '/',
+    authorizationMiddleware,
+    workspace_controller.getAll
+) */
+
+workspace_router.delete(
+    '/:workspace_id',
+    authorizationMiddleware,
+    workspace_controller.delete
+)
+
 export default workspace_router
