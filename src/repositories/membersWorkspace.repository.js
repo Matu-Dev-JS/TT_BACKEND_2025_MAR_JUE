@@ -9,6 +9,9 @@ class MembersWorkspaceRepository {
         })
         await workspace_member.save()
     }
+    async getAllByWorkspaceId (workspace_id){
+        return await WorkspaceMember.find({workspace_id: workspace_id})
+    }
 }
 
 const members_workspace_repository = new MembersWorkspaceRepository()

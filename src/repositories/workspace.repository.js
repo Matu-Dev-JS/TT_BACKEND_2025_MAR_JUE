@@ -34,6 +34,10 @@ class WorkspacesRepository {
     async deleteById(workspace_id){
         return await Workspaces.findOneAndDelete({_id: workspace_id})
     }
+
+    async getById (workspace_id){
+        return await Workspaces.findById(workspace_id)
+    }
 }
 const workspaces_repository = new WorkspacesRepository();
 export default workspaces_repository;
