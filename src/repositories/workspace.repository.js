@@ -11,21 +11,16 @@ class WorkspacesRepository {
      * @param {string} [data.description] - La descripcion del workspace.
      */
     async create({ name, owner_id, description}) {
-        try{
-            const workspace = new Workspaces({
-                name,
-                owner_id,
-                description
-            });
-            
-            await workspace.save();
-            console.log("Workspace creado exitosamente!");
-        }
-        catch(error){
-            console.error('Ups ocurrio un error!: en la creacion del workspace:')
-            console.error(error)
-            
-        }
+   
+        const workspace = new Workspaces({
+            name,
+            owner_id,
+            description
+        });
+        
+        await workspace.save();
+        return workspace
+
     }
     async deleteWorkspaceFromOwner (owner_id, workspace_id) {
 

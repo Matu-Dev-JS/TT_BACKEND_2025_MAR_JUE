@@ -1,3 +1,5 @@
+import { AVAILABLE_ROLES_WORKSPACE_MEMBERS } from "../dictionaries/availableRoles.dictionary.js"
+import members_workspace_repository from "../repositories/membersWorkspace.repository.js"
 import workspaces_repository from "../repositories/workspace.repository.js"
 
 class WorkspaceController {
@@ -6,7 +8,12 @@ class WorkspaceController {
             const {name, description} = request.body
             const {id} = request.user //Este id es del usuario que hace la consulta
 
-            await workspaces_repository.create({name, description, owner_id: id})
+            const workspace_created = await workspaces_repository.create({name, description, owner_id: id})
+            await members_workspace_repository.create({
+                workspace_id: workspace_created._id,
+                user_id: id,
+                role: AVAILABLE_ROLES_WORKSPACE_MEMBERS.ADMIN
+            })
             response.status(201).json(
                 {
                     ok: true, 
@@ -80,3 +87,6 @@ class WorkspaceController {
 
 const workspace_controller = new WorkspaceController
 export default workspace_controller
+
+//GET ALL WORKSPACE: Obtener la lista de workspaces a los que un usuario pertenece
+//Que usuario pertenezca  un workspace es cuando: es owner o es un member
