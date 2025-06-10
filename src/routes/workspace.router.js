@@ -11,11 +11,11 @@ workspace_router.post(
     workspace_controller.create
 )
 
-/* workspace_router.get(
+workspace_router.get(
     '/',
     authorizationMiddleware,
-    workspace_controller.getAll
-) */
+    workspace_controller.getAllByMember
+)
 
 workspace_router.delete(
     '/:workspace_id',

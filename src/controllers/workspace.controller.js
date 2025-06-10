@@ -88,6 +88,20 @@ class WorkspaceController {
             }
         };
     }
+
+    async getAllByMember (request, response){
+        const {id} = request.user
+        //Obtener la lista de workspaces que el cliente es miembro
+        const workspaces = await members_workspace_repository.getAllByUserId(id)
+        response.json({
+            ok: true, 
+            status: 200,
+            message:'Lista de workspaces',
+            data: {
+                workspaces: workspaces
+            }
+        })
+    }
 }
 
 const workspace_controller = new WorkspaceController
