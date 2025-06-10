@@ -2,6 +2,11 @@ import { AVAILABLE_ROLES_WORKSPACE_MEMBERS } from "../dictionaries/availableRole
 import members_workspace_repository from "../repositories/membersWorkspace.repository.js"
 import workspaces_repository from "../repositories/workspace.repository.js"
 
+//Garbarage storage?
+//No necesitamos manipular la memoria, JS lo hace por nosotros
+//Una variable se asigna automaticamente un lugar en la memoria
+//Una variable no se usa automaticamente JS tambien le retira su lugar en memoria
+
 class WorkspaceController {
     async create(request, response){
         try{
