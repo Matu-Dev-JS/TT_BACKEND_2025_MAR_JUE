@@ -42,6 +42,44 @@ class ChannelController {
         }
 
     }
+    async getAllByWorkspaceId (request, response){
+        try{
+            const { workspace_id } = request.params
+            const channels = await channel_service.getAllByWorkspaceId(workspace_id)
+            response.status(200).json(
+                {
+                    ok: true,
+                    message: 'Canales obtenidos exitosamente',
+                    status: 200,
+                    data: { 
+                        channels 
+                    }
+                }
+            )
+        }
+        catch (error) {
+            if (error.status) {
+                response.status(error.status).json(
+                    {
+                        message: error.message,
+                        status: error.status,
+                        ok: false
+                    }
+                )
+            }
+            else {
+                console.error('Hubo un error', error)
+                response.status(500).json(
+                    {
+                        message: error.message,
+                        status: 500,
+                        ok: false
+                    }
+                )
+            }
+        }
+
+    }
 }
 
 const channel_controller = new ChannelController()

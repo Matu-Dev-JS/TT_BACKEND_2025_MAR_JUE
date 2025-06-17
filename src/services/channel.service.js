@@ -30,12 +30,8 @@ class ChannelService {
             if (existingChannel) {
                 throw { status: 400, message: 'El nombre del canal ya está en uso' };
             }
-            const workspace = await workspaces_repository.getById(workspaceId);
-            if (!workspace) {
-                throw { status: 404, message: 'Workspace not found' };
-            }
-
-            await channel_repository.create(workspaceId, name);
+            const default_is_private = false
+            await channel_repository.create(workspaceId, name, default_is_private);
             const channels = await channel_repository.getAllByWorkspace(workspaceId);
             return {
                 channels
@@ -43,6 +39,9 @@ class ChannelService {
         } catch (error) {
             throw error;
         }
+    }
+    async getAllByWorkspaceId (workspace_id){
+        return await channel_repository.getAllByWorkspace(workspace_id)
     }
 }
 
