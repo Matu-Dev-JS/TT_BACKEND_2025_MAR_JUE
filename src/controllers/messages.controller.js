@@ -43,8 +43,15 @@ class MessagesController {
 
     async getAllByChannel(request, response){
         try{
-            console.log('body:', request.body)
-            console.log('Se hizo el getAllByChannel')
+            const {channel_id} = request.params
+            const messages_list = await channel_messages_service.getAllByChannelId({channel_id: channel_id})
+
+            response.json({
+                ok: true,
+                status: 200,
+                message: 'Mensajes obtenidos exitosamente',
+                messages: messages_list
+            })
         }
         catch(error){
             if(error.status){ 
