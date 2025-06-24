@@ -8,7 +8,7 @@ Que guarde el canal buscado en request.channel
 
 
 
-GET `/api/messages/:channel_id/`
+GET `/api/messages/:workspace_id/:channel_id/`
 
 Obtiene todos los mensajes pertenecientes al channel consultado.
 

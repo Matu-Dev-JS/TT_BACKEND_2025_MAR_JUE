@@ -23,6 +23,15 @@ class ChannelRepository {
             throw error;
         }
     }
+    
+    async findById(id) {
+        try {
+            const channel = await Channel.findById(id);
+            return channel;
+        } catch (error) {
+            throw error;
+        }
+    }
 
     async getAllByWorkspace(workspaceId){
         try {

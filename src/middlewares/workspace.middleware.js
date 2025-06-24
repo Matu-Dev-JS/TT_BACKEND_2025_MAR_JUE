@@ -7,6 +7,7 @@ const workspaceMiddleware = async (req, res, next) => {
     const userId = req.user.id;
 
     try {
+        console.log('workspaceId', workspaceId)
         const workspace = await workspaces_repository.getById(workspaceId);
         if (!workspace) {
             throw { status: 404, message: 'Workspace not found' };
@@ -23,5 +24,8 @@ const workspaceMiddleware = async (req, res, next) => {
         res.status(error.status).json({ message: error.message, status: error.status, ok: false });
     }
 };
+
+
+
 
 export default workspaceMiddleware
