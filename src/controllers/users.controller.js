@@ -67,7 +67,7 @@ class UserController {
 
     }
 
-    async verify(request, response) {
+    async verify(request, response, next) {
         try {
 
             //Necesitamos capturar el parametro de consulta verify_token
@@ -102,24 +102,12 @@ class UserController {
             
         }
         catch (error) {
-            console.log('Hubo un error', error)
-            if(error.status){ //checkeo si es un error mio
-                response.status(error.status).send(
-                    {
-                        message: error.message, 
-                        ok: false
-                    }
-                )
-                return //corto mi ejecucion
-            }
-            else{
-                response.status(500).send({message: 'Error interno del servidor', ok: false})
-            }
+            next(error)
         }
 
     }
 
-    async login(request, response){
+    async login(request, response, next){
         try{
         
             const {email, password} = request.body
@@ -168,20 +156,7 @@ class UserController {
             })
         }
         catch(error){
-            
-            if(error.status){ 
-                response.status(error.status).send(
-                    {
-                        message: error.message, 
-                        ok: false
-                    }
-                )
-                return 
-            }
-            else{
-                console.log('Hubo un error', error)
-                response.status(500).send({message: 'Error interno del servidor', ok: false})
-            }
+            next(error)
         }
     }
     // GET /api/users/resend-verification-mail

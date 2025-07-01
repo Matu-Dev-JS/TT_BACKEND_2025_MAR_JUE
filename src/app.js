@@ -12,6 +12,7 @@ import workspace_router from "./routes/workspace.router.js";
 import memberWorkspaceRouter from "./routes/membersWorkspace.router.js";
 import channelRouter from "./routes/channels.router.js";
 import messageRouter from "./routes/messages.router.js";
+import errorMiddleware from "./middlewares/error.middleware.js";
 
 
 const app = express()
@@ -42,6 +43,8 @@ app.use('/api/products', productsRouter)
 app.use('/api/members', memberWorkspaceRouter)
 app.use('/api/channels', channelRouter)
 app.use('/api/messages', messageRouter)
+
+app.use(errorMiddleware)
 
 app.listen(ENVIRONMENT.PORT, () => {
     console.log(`La aplicacion se esta escuchando en http://localhost:${ENVIRONMENT.PORT}`)

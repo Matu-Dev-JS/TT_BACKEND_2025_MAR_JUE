@@ -44,7 +44,6 @@ class ChannelController {
     }
     async getAllByWorkspaceId (request, response){
         try{
-            console.log("hola")
             const { workspace_id } = request.params
             const channels = await channel_service.getAllByWorkspaceId(workspace_id)
             response.status(200).json(
